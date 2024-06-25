@@ -7,6 +7,10 @@ import Login from './components/Login.jsx';
 import Home from './components/Home.jsx';
 import { Provider } from 'react-redux';
 import { store } from './store/store.js';
+import Subtodo from './components/Subtodo.jsx';
+
+
+
 
 
 const router = createBrowserRouter([
@@ -16,11 +20,15 @@ const router = createBrowserRouter([
     children:[
       {
         path:"",
-        element:<Home/>
+        element:<Home/>,
       },
       {
         path:"login",
         element:<Login/>
+      },
+      {
+        path:"subtodo/:todoId",
+        element:<Subtodo/>
       }
     ]
   }

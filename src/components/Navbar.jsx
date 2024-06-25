@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import axios from "axios"
-import { isUserLoggedIn } from "../store/todoSlice"
+import { changeLoading, isUserLoggedIn } from "../store/todoSlice"
 
 
 function Navbar() {
   const isLogin = useSelector(state=>state.isLogin)
-  const {username} = isLogin.userData
-  const dispatch = useDispatch()
+  const {username} = isLogin.userData;
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     axios.post('http://localhost:8000/api/v1/users/logout-user','',{
@@ -15,8 +15,11 @@ function Navbar() {
         "Authorization":`Bearer ${JSON.parse(localStorage.getItem("accessToken"))}`
       }
     })
-    .then(response=>{
+    .then(()=>{
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
         dispatch(isUserLoggedIn(''));
+        dispatch(changeLoading(false));
     })
   }
   return (
@@ -31,9 +34,9 @@ function Navbar() {
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/">Home</Link>
         </li>
-        <li className="nav-item">
+        {!username && <li className="nav-item">
           <Link className="nav-link" to="/login">Login</Link>
-        </li>
+        </li>}
         {username && <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {username}
