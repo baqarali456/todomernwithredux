@@ -61,6 +61,9 @@ export const todoSlice = createSlice({
       deleteTodos:(state,action)=>{
        state.todos = state.todos.filter(todo=>todo._id !== action.payload)
       },
+      deletesubTodos:(state,action)=>{
+       state.subTodos = state.subTodos.filter(subtodo=>subtodo._id !== action.payload)
+      },
       editableTodos:(state,action)=>{
       state.isEdit = true;
       state.index = state.todos.findIndex(todo=>todo._id === action.payload);
@@ -85,7 +88,7 @@ export const todoSlice = createSlice({
     }
 }) 
 
-export const {getsubTodos,changeContent,updateTodo,editableTodos,deleteTodos,changeErrorinGetUser,changeLoading,changeErrorMsgForTodo,changeName,addTodos,getUserTodos,isUserLoggedIn,changeEmail,changePassword,changeUsername,changeError} = todoSlice.actions;
+export const {deletesubTodos,getsubTodos,changeContent,updateTodo,editableTodos,deleteTodos,changeErrorinGetUser,changeLoading,changeErrorMsgForTodo,changeName,addTodos,getUserTodos,isUserLoggedIn,changeEmail,changePassword,changeUsername,changeError} = todoSlice.actions;
 
 
 export default todoSlice.reducer;
